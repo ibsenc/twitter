@@ -1,6 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import FeedPage from './pages/FeedPage'
+import UserProfilePage from './pages/UserProfilePage'
+import EditUserProfilePage from './pages/EditUserProfilePage'
+import LoginPage from './pages/LoginPage'
+import CreateUserPage from './pages/CreateUserPage'
+import EditPostPage from './pages/EditPostPage'
+
 
 import {
   createBrowserRouter,
@@ -10,27 +16,27 @@ import {
 const router = createBrowserRouter([
   {
     path: '/profile/:userId',
-    element: <UserProfile />
+    element: <UserProfilePage />
   },
   {
     path: '/profile/:userId/edit',
-    element: <EditUserProfile />
+    element: <EditUserProfilePage />
   },
   {
     path: '/login',
-    element: <Login />
+    element: <LoginPage />
   },
   {
     path: '/register',
-    element: <CreateUser />
+    element: <CreateUserPage />
   },
   {
     path: '/',
-    element: <Feed />
+    element: <FeedPage />
   },
   {
     path: 'post/:postId/edit',
-    element: <EditPost />
+    element: <EditPostPage />
   },
 ])
 

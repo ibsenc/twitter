@@ -1,0 +1,17 @@
+.post-container {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    max-height: 100px;
+    /* change width for mobile */
+    /* min-width: 400px; */
+    width: 500px;
+    padding: 15px;
+    justify-content: center;
+    margin: 10px;
+    line-height: 1.5;
+    color: #282828;
+}
+
+a {
+    all: unset;
+}

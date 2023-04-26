@@ -1,0 +1,17 @@
+.feed-outer-container {
+    justify-content: center;
+    padding-top: 20px;
+    /* background-color: red; */
+}
+
+.feed-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    /* background-color: blueviolet; */
+}
+
+.feed-content {
+    /* background-color: yellow; */
+    margin: auto;
+}
