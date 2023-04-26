@@ -7,7 +7,7 @@ function getAllUsers() {
 }
 
 function getUserByUserId(userId) {
-    return UsersModel.find({_id: userId}).exec();
+    return UsersModel.findById(userId).exec();
 }
 
 function createUser(user) {
