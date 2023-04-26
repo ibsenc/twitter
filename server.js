@@ -1,8 +1,8 @@
-const express = require('express');
 const posts = require('./apis/posts')
 const users = require('./apis/users')
-const app = express();
 const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
 
@@ -27,4 +27,4 @@ app.listen(process.env.PORT || 8000, function() {
 })
 
 app.use('/api/posts/', posts);
-app.use('/api/users/', users)
+app.use('/api/users/', users);

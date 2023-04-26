@@ -5,8 +5,8 @@ exports.PostsSchema = new Schema({
         type: String,
         require: true,
     },
-    created : { 
-        type : Date, 
+    created: { 
+        type: Date, 
         default: Date.now,
     },
     content: {

@@ -15,7 +15,7 @@ function createPost(post) {
 }
 
 function updatePost(postId, content) {
-    return PostsModel.findByIdAndUpdate(postId, {content: content})
+    return PostsModel.findByIdAndUpdate(postId, {content: content}, {new: true});
 }
 
 function deletePost(postId) {
