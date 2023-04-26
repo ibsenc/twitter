@@ -3,10 +3,10 @@ const Schema = require('mongoose').Schema;
 exports.UsersSchema = new Schema({
     username: { 
         type: String,
-        require: true,
+        required: true,
     },
     joined: { 
-        type : Date, 
+        type : Date,
         default: Date.now,
     },
     description: String,

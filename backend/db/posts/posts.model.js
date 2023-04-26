@@ -6,8 +6,8 @@ function getAllPosts() {
     return PostsModel.find({}).sort({_id:-1}).exec();
 }
 
-function getPostsByUser(username) {
-    return PostsModel.find({username: username}).sort({_id:-1}).exec();
+function getPostsByUserId(userId) {
+    return PostsModel.find({userId: userId}).sort({_id:-1}).exec();
 }
 
 function createPost(post) {
@@ -24,7 +24,7 @@ function deletePost(postId) {
 
 module.exports = {
     getAllPosts,
-    getPostsByUser,
+    getPostsByUserId,
     createPost,
     deletePost,
     updatePost

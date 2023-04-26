@@ -6,8 +6,8 @@ function getAllUsers() {
     return UsersModel.find({}).exec();
 }
 
-function getUserByUsername(username) {
-    return UsersModel.find({username: username}).exec();
+function getUserByUserId(userId) {
+    return UsersModel.find({_id: userId}).exec();
 }
 
 function createUser(user) {
@@ -24,8 +24,8 @@ function deleteUser(userId) {
 
 module.exports = {
     getAllUsers,
-    getUserByUsername,
+    getUserByUserId,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
 }

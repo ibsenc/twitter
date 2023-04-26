@@ -1,9 +1,9 @@
 const Schema = require('mongoose').Schema;
 
 exports.PostsSchema = new Schema({
-    username: { 
+    userId: {
         type: String,
-        require: true,
+        required: true,
     },
     created: { 
         type: Date, 
@@ -11,7 +11,7 @@ exports.PostsSchema = new Schema({
     },
     content: {
         type: String,
-        require: true,
-    },
+        required: true,
+    }
 
 }, { collection : 'posts' });

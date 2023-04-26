@@ -13,14 +13,12 @@ router.get('/', async function(request, response) {
     }
 });
 
-router.get('/:username', async function(request, response) {
-    const username = request.params.username;
+router.get('/:userId', async function(request, response) {
+    const userId = request.params.userId;
 
     try {
-        const getUserByUsernameResponse = await UsersModel.getUserByUsername(username)
-        console.log(username)
-        console.log(getUserByUsernameResponse)
-        return response.send(getUserByUsernameResponse);
+        const getUserByUserIdResponse = await UsersModel.getUserByUserId(userId)
+        return response.send(getUserByUserIdResponse);
     } catch (error) {
         console.error(error)
         return response.status(500).send(error)
@@ -43,7 +41,6 @@ router.put('/:userId', async function(request, response) {
     const userId = request.params.userId;
     const newDescription = request.body.description;
 
-    console.log(newDescription)
     try {
         const updateUserResponse = await UsersModel.updateUser(userId, newDescription)
         return response.send(updateUserResponse)

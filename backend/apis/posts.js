@@ -13,11 +13,11 @@ router.get('/', async function(request, response) {
     }
 });
 
-router.get('/:username', async function(request, response) {
-    const username = request.params.username;
+router.get('/:userId', async function(request, response) {
+    const userId = request.params.userId;
 
     try {
-        const userPostsResponse = await PostsModel.getPostsByUser(username)
+        const userPostsResponse = await PostsModel.getPostsByUserId(userId)
         response.send(userPostsResponse);
     } catch (error) {
         console.error(error)
