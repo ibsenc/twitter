@@ -3,7 +3,7 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 25px;
-    line-height: 1.7;
+    line-height: 2;
 }
 
 .username-title {
@@ -12,6 +12,12 @@
 }
 
 .user-description {
+    margin: auto;
+    color: grey;
+}
+
+.date-joined {
+    font-size: 12px;
     margin: auto;
     color: grey;
 }

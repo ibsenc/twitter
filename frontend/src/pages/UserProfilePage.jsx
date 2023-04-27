@@ -11,6 +11,8 @@ export default function UserProfilePage() {
     const [username, setUsername] = useState("");
     const [userId, setUserId] = useState("");
     const [description, setDescription] = useState("");
+    const [joined, setJoined] = useState("");
+    const [posts, setPosts] = useState([]);
 
     const location = useLocation();
 
@@ -27,13 +29,12 @@ export default function UserProfilePage() {
             const response = await axios.get('http://localhost:8000/api/users/' + userId);
             setUsername(response.data.username);
             setDescription(response.data.description);
+            setJoined(response.data.joined);
         }
 
         getUserById();
 
     }, [userId]);
-
-    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         if (!userId) {
@@ -47,12 +48,18 @@ export default function UserProfilePage() {
         getAllPosts()
     }, [userId])
 
+    function convertDateTime(datetime) {
+        const dt = new Date(datetime)
+        return dt.toLocaleString()
+    }
+
     return (
         <div>
             <NavBar />
             <div className="user-details-container">
                 <div className="username-title twitter-font">{username}</div>
                 <div className="user-description twitter-font">{description}</div>
+                <div className="date-joined twitter-font">Joined: {convertDateTime(joined)}</div>
             </div>
             <Feed posts={posts}/>
         </div>
