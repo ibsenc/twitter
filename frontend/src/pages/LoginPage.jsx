@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import NavBar from '../components/NavBar';
 import "./LoginPage.css";
+import axios from 'axios';
+
 
 export default function LoginPage() {
 
@@ -32,7 +34,7 @@ export default function LoginPage() {
         }
 
         try {
-            // API call to login
+            const response = await axios.post('http://localhost:8000/api/users/login', {username: usernameInput, password: passwordInput})
             navigate('/');
         } catch (e) {
             console.log(e.response.data)

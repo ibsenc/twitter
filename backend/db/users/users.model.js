@@ -10,6 +10,10 @@ function getUserByUserId(userId) {
     return UsersModel.findById(userId).exec();
 }
 
+function getUserByUsername(username) {
+    return UsersModel.findOne({username: username}).exec();
+}
+
 function createUser(user) {
     return UsersModel.create(user);
 }
@@ -28,4 +32,5 @@ module.exports = {
     createUser,
     updateUser,
     deleteUser,
+    getUserByUsername
 }

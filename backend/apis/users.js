@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router();
 const UsersModel = require('../db/users/users.model');
+// const bcrypt = require("bcryptjs");
+// const jwt = require('jsonwebtoken');
 
 // /api/users/
 router.get('/', async function(request, response) {
@@ -25,7 +27,26 @@ router.get('/:userId', async function(request, response) {
     }
 });
 
+router.get('/username/:username', async function(request, response) {
+    const username = request.params.username;
+
+    try {
+        const getUserResponse = await UsersModel.getUserByUsername(username)
+        return response.send(getUserResponse);
+    } catch (error) {
+        console.error(error)
+        return response.status(500).send(error)
+    }
+});
+
 router.post('/', async function(request, response) {
+
+    if(!request.body.username || !request.body.password) {
+        return res.status(404).send({message: "Must include username AND password"});
+    }
+
+    request.body.password = bcrypt.hashSync(request.body.password, 10);
+
     const newUser = request.body;
 
     try {
@@ -56,5 +77,48 @@ router.delete('/:userId', async function(request, response) {
     const deleteResponse = await UsersModel.deleteUser(userId)
     return response.send("Successfully deleted user")
 });
+
+router.post('/login', async function(request, res) {
+    const username = request.body.username;
+    let password = request.body.password;
+
+    try {
+        const getUserResponse = await UsersModel.getUserByUsername(username);
+
+        // console.log("Password from input: " + password)
+        // console.log("Password from DB: " + getUserResponse.password)
+
+        // password = bcrypt.hashSync(password, 10);
+        // console.log("Password from DB: " + getUserResponse.password)
+        // console.log("Password from input: " + password)
+
+        // if (bcrypt.compareSync(req.body.password, user.password)) {
+        //     res.status(200).send("Success!");
+        // } else {
+        //     res.status(401).send("Username or password is incorrect.");
+        // }
+
+        if (getUserResponse.password !== password) {
+            return res.status(403).send("Username or password is incorrect.");
+        }
+
+        const userId = getUserResponse.userId;
+
+        const jwtPayload = {
+            userId,
+            username
+        }
+
+        const token = jwt.sign(jwtPayload, "Camille's password")
+
+        res.cookie("userToken", token);
+        
+        return res.send("Logged in successfully");
+    
+    } catch (e) {
+        console.error(e);
+        res.status(401).send("Unauthorized: access denied.");
+    }
+})
 
 module.exports = router;

@@ -22,6 +22,7 @@ export default function FeedPage() {
         <div>
             <NavBar />
             <div className="feed-outer-container">
+                {/* if logged in, show CreatePost */}
                 <CreatePost />
                 <Feed posts={posts}/>
             </div>

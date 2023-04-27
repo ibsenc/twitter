@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import axios from 'axios';
 import Feed from '../components/Feed';
+import CreatePost from '../components/CreatePost';
 import "./UserProfilePage.css";
 
 import { useLocation } from "react-router-dom";
@@ -60,6 +61,10 @@ export default function UserProfilePage() {
                 <div className="username-title twitter-font">{username}</div>
                 <div className="user-description twitter-font">{description}</div>
                 <div className="date-joined twitter-font">Joined: {convertDateTime(joined)}</div>
+            </div>
+            {/* if logged in, show the below */}
+            <div className="profile-create-post-container">
+                <CreatePost />
             </div>
             <Feed posts={posts}/>
         </div>
