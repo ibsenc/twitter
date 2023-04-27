@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import {Link} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./Post.css";
@@ -33,7 +32,7 @@ export default function Post({postDetails}) {
     }
 
     return (
-        <div className="post-container" onClick={goToUserPage}>
+        <div className="post-container twitter-font" onClick={goToUserPage}>
             {username} - {convertDateTime(postDetails.created)}
             <div>
                 {postDetails.content}

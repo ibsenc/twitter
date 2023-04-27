@@ -1,0 +1,17 @@
+.user-details-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 25px;
+    line-height: 1.7;
+}
+
+.username-title {
+    font-size: 30px;
+    margin: auto;
+}
+
+.user-description {
+    margin: auto;
+    color: grey;
+}
