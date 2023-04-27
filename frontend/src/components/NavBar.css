@@ -24,11 +24,7 @@ body {
     display: flex;
 }
 
-.login-button {
-    margin: auto 20px;
-}
-
-.register-button {
+.navbar-button {
     margin: auto 20px;
 }
 

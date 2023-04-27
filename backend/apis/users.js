@@ -18,6 +18,7 @@ router.get('/', async function(request, response) {
 
 router.get('/loggedinuser', async function(request, response) {
     const jwtPayload = request.cookies.userToken;
+    // console.log(jwtPayload);
 
     if(!jwtPayload) {
         console.info("No user is logged in.")
@@ -27,12 +28,14 @@ router.get('/loggedinuser', async function(request, response) {
     let decryptedJwtPayload;
     try {
         decryptedJwtPayload = jwt.verify(jwtPayload, "Camille's password");
+        // console.log(decryptedJwtPayload);
     } catch(e) {
         console.error(e);
         return response.send({userId: null, username: null})
     }
 
     const {userId, username} = decryptedJwtPayload;
+    // console.log(userId, username);
 
     if(!userId || !username) {
         console.info(`UserId ${userId} or username ${username} is null.`)
@@ -144,7 +147,7 @@ router.post('/login', async function(request, response) {
             return response.status(403).send("Username or password is incorrect.");
         }
 
-        const userId = getUserResponse.userId;
+        const userId = getUserResponse._id;
 
         const jwtPayload = {
             userId,
