@@ -12,7 +12,7 @@ export default function Post({postDetails}) {
         }
 
         async function getUsername() {
-            const response = await axios.get('http://localhost:8000/api/users/' + postDetails.userId);
+            const response = await axios.get('/api/users/' + postDetails.userId);
             setUsername(response.data.username);
         }
 

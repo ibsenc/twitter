@@ -12,7 +12,7 @@ export default function FeedPage() {
     useEffect(() => {
 
         async function getAllPosts() {
-            const response = await axios.get("http://localhost:8000/api/posts/");
+            const response = await axios.get("/api/posts/");
             setPosts(response.data);
         }
         getAllPosts()

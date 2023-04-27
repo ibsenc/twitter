@@ -27,7 +27,7 @@ export default function UserProfilePage() {
         }
 
         async function getUserById() {
-            const response = await axios.get('http://localhost:8000/api/users/' + userId);
+            const response = await axios.get('/api/users/' + userId);
             setUsername(response.data.username);
             setDescription(response.data.description);
             setJoined(response.data.joined);
@@ -43,7 +43,7 @@ export default function UserProfilePage() {
         }
 
         async function getAllPosts() {
-            const response = await axios.get(`http://localhost:8000/api/posts/${userId}`);
+            const response = await axios.get(`/api/posts/${userId}`);
             setPosts(response.data);
         }
         getAllPosts()

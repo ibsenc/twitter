@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import NavBar from '../components/NavBar';
 import "./LoginPage.css";
+import axios from 'axios';
 
 export default function CreateUserPage() {
 
@@ -38,15 +39,21 @@ export default function CreateUserPage() {
             return;
         }
 
-        try {
-            // API call to login
-            navigate('/');
-        } catch (e) {
-            console.log(e.response.data)
-            setErrorMessage("Something went wrong");
+        const newUser = {
+            username: usernameInput,
+            password: passwordInput,
+            description: descriptionInput
         }
 
-        console.log(usernameInput, passwordInput);
+        try {
+            const response = await axios.post('/api/users/register', newUser)
+            navigate('/');
+        } catch (e) {
+            console.error(e)
+            setErrorMessage("Something went wrong.");
+        }
+
+        // console.log(usernameInput, passwordInput);
     }
 
     return (

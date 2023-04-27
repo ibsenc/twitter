@@ -34,10 +34,10 @@ export default function LoginPage() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/users/login', {username: usernameInput, password: passwordInput})
+            const response = await axios.post('/api/users/login', {username: usernameInput, password: passwordInput})
             navigate('/');
         } catch (e) {
-            console.log(e.response.data)
+            console.error(e)
             setErrorMessage("Something went wrong");
         }
 
