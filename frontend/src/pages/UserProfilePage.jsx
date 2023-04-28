@@ -9,45 +9,74 @@ import { useLocation } from "react-router-dom";
 
 export default function UserProfilePage() {
 
-    const [username, setUsername] = useState("");
-    const [userId, setUserId] = useState("");
-    const [description, setDescription] = useState("");
-    const [joined, setJoined] = useState("");
+    const [profileUsername, setProfileUsername] = useState("");
+    const [profileUserId, setProfileUserId] = useState("");
+    const [profileDescription, setProfileDescription] = useState("");
+    const [profileJoined, setProfileJoined] = useState("");
     const [posts, setPosts] = useState([]);
+
+    const [isProfileOwner, setIsProfileOwner] = useState(false);
+    const [loggedInUsername, setLoggedInUsername] = useState("");
+    const [loggedInUserId, setLoggedInUserId] = useState("");
 
     const location = useLocation();
 
     useEffect(() => {
-        setUserId(location.state.userId);
+        setProfileUserId(location.state.userId);
     }, [])
 
     useEffect(() => {
-        if (!userId) {
+        async function getLoggedInUser() {
+            console.log("checkIfLoggedIn()...")
+            try {
+                const response = await axios.get('/api/users/loggedinuser');
+                setLoggedInUsername(response.data.username);
+                setLoggedInUserId(response.data.userId);
+                console.log(`Setting logged in username: ${response.data.username}`)
+                console.log(`Setting logged in userId: ${response.data.userId}`)
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        getLoggedInUser();
+    }, [])
+
+    useEffect(() => {
+        if (!profileUserId) {
             return
         }
 
         async function getUserById() {
-            const response = await axios.get('/api/users/' + userId);
-            setUsername(response.data.username);
-            setDescription(response.data.description);
-            setJoined(response.data.joined);
+            const response = await axios.get('/api/users/' + profileUserId);
+            setProfileUsername(response.data.username);
+            setProfileDescription(response.data.description);
+            setProfileJoined(response.data.joined);
         }
 
         getUserById();
 
-    }, [userId]);
+    }, [profileUserId]);
 
     useEffect(() => {
-        if (!userId) {
+        if (profileUserId != loggedInUserId) {
+            setIsProfileOwner(false);
+        } else {
+            setIsProfileOwner(true);
+        }
+    }, [profileUserId, loggedInUserId])
+
+    useEffect(() => {
+        if (!profileUserId) {
             return
         }
 
         async function getAllPosts() {
-            const response = await axios.get(`/api/posts/${userId}`);
+            const response = await axios.get(`/api/posts/${profileUserId}`);
             setPosts(response.data);
         }
         getAllPosts()
-    }, [userId])
+    }, [profileUserId, isProfileOwner])
 
     function convertDateTime(datetime) {
         const dt = new Date(datetime)
@@ -58,14 +87,14 @@ export default function UserProfilePage() {
         <div>
             <NavBar />
             <div className="user-details-container">
-                <div className="username-title twitter-font">{username}</div>
-                <div className="user-description twitter-font">{description}</div>
-                <div className="date-joined twitter-font">Joined: {convertDateTime(joined)}</div>
+                <div className="username-title twitter-font">{profileUsername}</div>
+                <div className="user-description twitter-font">{profileDescription}</div>
+                <div className="date-joined twitter-font">Joined: {convertDateTime(profileJoined)}</div>
             </div>
-            {/* if logged in, show the below */}
+            {isProfileOwner && 
             <div className="profile-create-post-container">
-                <CreatePost />
-            </div>
+                <CreatePost username={profileUsername} userId={profileUserId}/>
+            </div>}
             <Feed posts={posts}/>
         </div>
     )

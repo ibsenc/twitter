@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./CreatePost.css";
 import axios from 'axios';
 
@@ -28,6 +28,7 @@ export default function CreatePost({username, userId}) {
             const response = await axios.post('/api/posts/', {userId: userId, content: tweetContentInput})
             if (response.status == 200) {
                 setTweetContentInput("");
+                window.location.reload();
             }
         } catch (e) {
             console.error(e)

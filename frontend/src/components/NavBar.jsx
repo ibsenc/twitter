@@ -42,6 +42,7 @@ export default function NavBar() {
                 setUsername("");
                 setUserId("");
             }
+            window.location.reload();
         } catch (e) {
             console.error(e);
         }
@@ -51,7 +52,7 @@ export default function NavBar() {
         <div className="navbar sticky-pos white-text twitter-font">
             <Link className="left-component" to={"/"}>Twitter</Link>
             <div className="right-component">
-                {isLoggedIn && <div className="welcome navbar-button" >Welcome, {username}</div>}
+                {isLoggedIn && <div className="welcome navbar-button">Welcome, {username}</div>}
                 {isLoggedIn && <Link className="logout-button navbar-button" to={"/"} onClick={handleLogout}>Logout</Link>}
                 {!isLoggedIn && <Link className="login-button navbar-button" to={"/login"}>Login</Link>}
                 {!isLoggedIn && <Link className="register-button navbar-button" to={"/register"}>Register</Link>}
