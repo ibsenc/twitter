@@ -55,6 +55,7 @@ export default function UserProfilePage() {
             setProfileUsername(response.data.username);
             setProfileDescription(response.data.description);
             setProfileJoined(response.data.joined);
+            setDescriptionInput(response.data.description);
         }
 
         getUserById();
@@ -131,7 +132,7 @@ export default function UserProfilePage() {
                     </div>}
                 {editingDescription &&
                     <div className="input-and-submit description-container">
-                        <input className="input-edit-description" type='text' value={descriptionInput} onInput={setDescription} placeholder={profileDescription}></input>
+                        <input className="input-edit-description" type='text' value={descriptionInput} onInput={setDescription} />
                         <div className="submit-button-edit-description white-text twitter-font" onClick={submit}>Save</div>
                     </div>}
                 <div className="date-joined twitter-font">Joined: {convertDateTime(profileJoined)}</div>

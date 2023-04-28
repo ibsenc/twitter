@@ -9,6 +9,7 @@
     margin: 10px;
     line-height: 1.5;
     color: #282828;
+    background-color: white;
 }
 
 a {
@@ -34,6 +35,7 @@ a {
 
 .first-row:hover {
     text-decoration: underline;
+    color: blue;
 }
 
 .submit-button {

@@ -49,6 +49,7 @@ export default function Post({postDetails}) {
 
     useEffect(() => {
         setContent(postDetails.content);
+        setPostContentInput(postDetails.content);
 
     }, [postDetails])
 
@@ -116,7 +117,7 @@ export default function Post({postDetails}) {
     return (
         <div className="post-container twitter-font">
             <div className="first-row-container">
-                <div className="first-row" onClick={goToUserPage}>{postUsername} - {convertDateTime(postDetails.created)}</div>
+                <div className="first-row" onClick={goToUserPage}>{postUsername}<span style={{margin: "0px 3px"}}> • </span>{convertDateTime(postDetails.created)}</div>
                 {isPostOwner && 
                     <div>
                         <FontAwesomeIcon className="faicon" icon={faPenToSquare} onClick={handleEditPostClick} />
@@ -127,7 +128,7 @@ export default function Post({postDetails}) {
                 {!editing && postDetails.content}
                 {editing && 
                     <div className="updating-post-container">
-                        <input type='text' value={postContentInput} onInput={setPostContent} placeholder={content}></input>
+                        <input type='text' value={postContentInput} onInput={setPostContent} ></input>
                         <div className="submit-button white-text twitter-font" onClick={submit}>Submit</div>
                     </div>
                 }
