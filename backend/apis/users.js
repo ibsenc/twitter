@@ -21,7 +21,6 @@ router.get('/loggedinuser', async function(request, response) {
     // console.log(jwtPayload);
 
     if(!jwtPayload) {
-        console.info("No user is logged in.")
         return response.send({userId: null, username: null})
     }
 

@@ -14,3 +14,24 @@
 a {
     all: unset;
 }
+
+.first-row-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.faicon {
+    color: "#1c1c1c";
+    margin: 3px;
+}
+
+.updating-post-container {
+    margin-top: 5px;
+    display: flex;
+    /* background-color: coral; */
+    justify-content: space-around;
+}
+
+.first-row:hover {
+    text-decoration: underline;
+}

@@ -5,8 +5,6 @@ import UserProfilePage from './pages/UserProfilePage'
 import EditUserProfilePage from './pages/EditUserProfilePage'
 import LoginPage from './pages/LoginPage'
 import CreateUserPage from './pages/CreateUserPage'
-import EditPostPage from './pages/EditPostPage'
-
 
 import {
   createBrowserRouter,
@@ -15,12 +13,12 @@ import {
 
 const router = createBrowserRouter([
   {
-    path: '/profile/:userId',
-    element: <UserProfilePage />
+    path: '/profile/edit/:userId',
+    element: <EditUserProfilePage />
   },
   {
-    path: '/profile/:userId/edit',
-    element: <EditUserProfilePage />
+    path: '/profile/:userId',
+    element: <UserProfilePage />
   },
   {
     path: '/login',
@@ -33,11 +31,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <FeedPage />
-  },
-  {
-    path: 'post/:postId/edit',
-    element: <EditPostPage />
-  },
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
