@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const cors = require('cors')
+const path = require('path')
 const cookieParser = require('cookie-parser');
 
 const localMongoEndpoint = 'mongodb://127.0.0.1/project3';
@@ -22,9 +23,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use('/api/posts/', posts);
+app.use('/api/users/', users);
+
+let frontend_dir = path.join(__dirname, '..', 'frontend', 'dist')
+
+app.use(express.static(frontend_dir));
+app.get('*', function (req, res) {
+    console.log("received request");
+    res.sendFile(path.join(frontend_dir, "index.html"));
+});
+
 app.listen(process.env.PORT || 8000, function() {
     console.log("Starting server now...")
 })
-
-app.use('/api/posts/', posts);
-app.use('/api/users/', users);
