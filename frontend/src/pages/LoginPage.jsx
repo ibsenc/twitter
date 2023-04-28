@@ -45,7 +45,6 @@ export default function LoginPage() {
             } else if (response.status == 401 || response.status == 403) {
                 setErrorMessage("Invalid credentials, please try again.");
             } else {
-                console.log(response);
                 throw Exception(response.data);
             }
         } catch (e) {

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const UsersModel = require('../db/users/users.model');
 const jwt = require('jsonwebtoken');
+const {isAuthentic, isAuthorized} = require('./common.js');
 
 // /api/users/
 
@@ -16,30 +17,12 @@ router.get('/', async function(request, response) {
 });
 
 router.get('/loggedinuser', async function(request, response) {
-    const jwtPayload = request.cookies.userToken;
-    // console.log(jwtPayload);
-
-    if(!jwtPayload) {
-        return response.send({userId: null, username: null})
-    }
-
-    let decryptedJwtPayload;
-    try {
-        decryptedJwtPayload = jwt.verify(jwtPayload, "Camille's password");
-        // console.log(decryptedJwtPayload);
-    } catch(e) {
-        console.error(e);
-        return response.send({userId: null, username: null})
-    }
-
-    const {userId, username} = decryptedJwtPayload;
-    // console.log(userId, username);
-
-    if(!userId || !username) {
-        console.info(`UserId ${userId} or username ${username} is null.`)
-        return response.send({userId: null, username: null})
+    if (isAuthentic(request)) {
+        const jwtPayload = request.cookies.userToken;
+        const decryptedJwtPayload = jwt.verify(jwtPayload, "Camille's password");
+        return response.send(decryptedJwtPayload)
     } else {
-        return response.send({userId: userId, username: username})
+        return response.send({userId: null, username: null})
     }
 });
 
@@ -99,6 +82,10 @@ router.put('/:userId', async function(request, response) {
     const userId = request.params.userId;
     const newDescription = request.body.description;
 
+    if (!isAuthorized(request, userId)) {
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
+
     try {
         const updateUserResponse = await UsersModel.updateUser(userId, newDescription)
         return response.send(updateUserResponse)
@@ -110,6 +97,10 @@ router.put('/:userId', async function(request, response) {
 
 router.delete('/:userId', async function(request, response) {
     const userId = request.params.userId;
+
+    if (!isAuthorized(request, userId)) {
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
 
     const deleteResponse = await UsersModel.deleteUser(userId)
     return response.send("Successfully deleted user")
@@ -156,7 +147,5 @@ router.post('/logout', async function(request, response) {
 
     response.send(true);
 });
-
-
 
 module.exports = router;

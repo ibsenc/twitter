@@ -10,6 +10,10 @@ function getPostsByUserId(userId) {
     return PostsModel.find({userId: userId}).sort({_id:-1}).exec();
 }
 
+function getPostByPostId(postId) {
+    return PostsModel.findById(postId).exec();
+}
+
 function createPost(post) {
     return PostsModel.create(post);
 }
@@ -25,6 +29,7 @@ function deletePost(postId) {
 module.exports = {
     getAllPosts,
     getPostsByUserId,
+    getPostByPostId,
     createPost,
     deletePost,
     updatePost

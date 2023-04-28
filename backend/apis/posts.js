@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const PostsModel = require('../db/posts/posts.model');
+const { isAuthorized } = require('./common.js');
 
 // /api/posts/
 router.get('/', async function(request, response) {
@@ -28,6 +29,11 @@ router.get('/:userId', async function(request, response) {
 router.post('/', async function(request, response) {
     const newPost = request.body;
 
+    const userId = newPost.userId;
+    if (!isAuthorized(request, userId)) {
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
+
     try {
         const createPostResponse = await PostsModel.createPost(newPost)
         return response.send(createPostResponse)
@@ -41,6 +47,19 @@ router.put('/:postId', async function(request, response) {
     const postId = request.params.postId;
     const newPostContent = request.body.content;
 
+    let postResponse;
+    try {
+        postResponse = await PostsModel.getPostByPostId(postId)
+    } catch (error) {
+        console.error(error)
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
+
+    const userId = postResponse?.userId;
+    if (!isAuthorized(request, userId)) {
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
+
     try {
         const updatePostResponse = await PostsModel.updatePost(postId, newPostContent)
         return response.send(updatePostResponse)
@@ -52,6 +71,19 @@ router.put('/:postId', async function(request, response) {
 
 router.delete('/:postId', async function(request, response) {
     const postId = request.params.postId;
+
+    let postResponse;
+    try {
+        postResponse = await PostsModel.getPostByPostId(postId)
+    } catch (error) {
+        console.error(error)
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
+
+    const userId = postResponse?.userId;
+    if (!isAuthorized(request, userId)) {
+        return response.status(401).send("User is not authorized to perform this action.")
+    }
 
     const deleteResponse = await PostsModel.deletePost(postId)
     return response.send("Successfully deleted post")
