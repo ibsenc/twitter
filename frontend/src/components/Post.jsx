@@ -117,7 +117,10 @@ export default function Post({postDetails}) {
     return (
         <div className="post-container twitter-font">
             <div className="first-row-container">
-                <div className="first-row" onClick={goToUserPage}>{postUsername}<span style={{margin: "0px 3px"}}> • </span>{convertDateTime(postDetails.created)}</div>
+                <div className="first-row" onClick={goToUserPage}>
+                    {postUsername}
+                    <span className="division-dot"> • </span>
+                    {convertDateTime(postDetails.created)}</div>
                 {isPostOwner && 
                     <div>
                         <FontAwesomeIcon className="faicon" icon={faPenToSquare} onClick={handleEditPostClick} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import NavBar from '../components/NavBar';
-import "./LoginPage.css";
+import "./LoginOrRegister.css";
 import axios from 'axios';
 
 export default function CreateUserPage() {
@@ -35,7 +35,7 @@ export default function CreateUserPage() {
         setErrorMessage('');
 
         if (!usernameInput || !passwordInput) {
-            setErrorMessage('Please provide a username and password to login.');
+            setErrorMessage('* Please provide a username and password to login.');
             return;
         }
 
@@ -59,27 +59,29 @@ export default function CreateUserPage() {
     return (
         <div>
             <NavBar />
-            <div>
-            <h1>Create Account</h1>
-            <div className="error">
-                {errorMessage && errorMessage}
+            <div className="login-register-container">
+                <h1 className="title twitter-font">Create Account</h1>
+                <div className="login-register-contents">
+                    <div className="input-row twitter-font">
+                        <span>Username: </span>
+                        <input type='text' value={usernameInput} onInput={setUsername}></input>
+                        <span className="asterisk"> *</span>
+                    </div>
+                    <div className="input-row twitter-font">
+                        <span className="password-span">Password: </span>
+                        <input type='text' value={passwordInput} onInput={setPassword}></input>
+                        <span className="asterisk"> *</span>
+                    </div>
+                    <div className="input-row twitter-font">
+                        <span className="bio-span">User Bio: </span>
+                        <input type='text' value={descriptionInput} onInput={setDescription}></input>
+                    </div>
+                    <div className="submit-button twitter-font white-text"onClick={submit}>Create Account</div>
+                    <div className="error twitter-font">
+                        {errorMessage && errorMessage}
+                    </div>
+                </div>
             </div>
-            <div>
-                <span>Username: </span>
-                <input type='text' value={usernameInput} onInput={setUsername}></input>
-                <span className="asterisk"> *</span>
-            </div>
-            <div>
-                <span>Password: </span>
-                <input type='text' value={passwordInput} onInput={setPassword}></input>
-                <span className="asterisk"> *</span>
-            </div>
-            <div>
-                <span>Bio: </span>
-                <input type='text' value={descriptionInput} onInput={setDescription}></input>
-            </div>
-            <button onClick={submit}>Create Account</button>
-        </div>
         </div>
         
     )

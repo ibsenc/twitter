@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import NavBar from '../components/NavBar';
-import "./LoginPage.css";
+import "./LoginOrRegister.css";
 import axios from 'axios';
 
 
@@ -29,7 +29,7 @@ export default function LoginPage() {
         setErrorMessage('');
 
         if (!usernameInput || !passwordInput) {
-            setErrorMessage('Please provide a username and password to login.');
+            setErrorMessage('* Please provide a username and password to login.');
             return;
         }
 
@@ -47,23 +47,25 @@ export default function LoginPage() {
     return (
         <div>
             <NavBar />
-            <div>
-            <h1>Login</h1>
-            <div className="error">
-                {errorMessage && errorMessage}
+            <div className="login-register-container">
+                <h1 className="title twitter-font">Login</h1>
+                <div className="login-register-contents">
+                    <div className="input-row twitter-font">
+                        <span>Username: </span>
+                        <input type='text' value={usernameInput} onInput={setUsername}></input>
+                        <span className="asterisk"> *</span>
+                    </div>
+                    <div className="input-row twitter-font">
+                        <span className="password-span">Password: </span>
+                        <input type='text' value={passwordInput} onInput={setPassword}></input>
+                        <span className="asterisk"> *</span>
+                    </div>
+                    <div className="submit-button twitter-font white-text"onClick={submit}>Login</div>
+                    <div className="error twitter-font">
+                        {errorMessage && errorMessage}
+                    </div>
+                </div>
             </div>
-            <div>
-                <span>Username: </span>
-                <input type='text' value={usernameInput} onInput={setUsername}></input>
-                <span className="asterisk"> *</span>
-            </div>
-            <div>
-                <span>Password: </span>
-                <input type='text' value={passwordInput} onInput={setPassword}></input>
-                <span className="asterisk"> *</span>
-            </div>
-            <button onClick={submit}>Login</button>
-        </div>
         </div>
         
     )
