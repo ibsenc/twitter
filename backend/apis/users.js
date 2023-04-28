@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 const UsersModel = require('../db/users/users.model');
-// const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
 // /api/users/
@@ -128,19 +127,6 @@ router.post('/login', async function(request, response) {
 
     try {
         const getUserResponse = await UsersModel.getUserByUsername(username);
-
-        // console.log("Password from input: " + password)
-        // console.log("Password from DB: " + getUserResponse.password)
-
-        // password = bcrypt.hashSync(password, 10);
-        // console.log("Password from DB: " + getUserResponse.password)
-        // console.log("Password from input: " + password)
-
-        // if (bcrypt.compareSync(req.body.password, user.password)) {
-        //     res.status(200).send("Success!");
-        // } else {
-        //     res.status(401).send("Username or password is incorrect.");
-        // }
 
         if (getUserResponse.password !== password) {
             return response.status(403).send("Username or password is incorrect.");

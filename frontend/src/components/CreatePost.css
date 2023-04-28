@@ -1,5 +1,4 @@
 .create-post-container {
-    /* change width for mobile */
     width: 500px;
     height: 50px;
     display: flex;
@@ -15,7 +14,6 @@
 .new-status-update {
     width: 100%;
     display: flex;
-    /* background-color: coral; */
     justify-content: space-around;
 }
 

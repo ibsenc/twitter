@@ -23,13 +23,10 @@ export default function FeedPage() {
 
     useEffect(() => {
         async function checkIfLoggedIn() {
-            console.log("checkIfLoggedIn()...")
             try {
                 const response = await axios.get('/api/users/loggedinuser');
                 setUsername(response.data.username);
                 setUserId(response.data.userId);
-                console.log(`Setting logged in username: ${response.data.username}`)
-                console.log(`Setting logged in userId: ${response.data.userId}`)
             } catch (e) {
                 console.error(e);
             }

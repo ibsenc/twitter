@@ -41,7 +41,7 @@ export default function LoginPage() {
             setErrorMessage("Something went wrong");
         }
 
-        console.log(usernameInput, passwordInput);
+        console.info(`Logged in user: ${usernameInput}`);
     }
 
     return (

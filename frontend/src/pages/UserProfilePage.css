@@ -38,11 +38,8 @@
 }
 
 .description-container {
-    /* width: 300px; */
     margin:auto;
     display: flex;
-    /* justify-content: space-around; */
-    /* background-color: red; */
 }
 
 .submit-button-edit-description {

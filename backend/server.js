@@ -6,9 +6,9 @@ const app = express();
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
 
-// This is the default address for MongoDB.
-// Make sure MongoDB is running!
-const mongoEndpoint = 'mongodb://127.0.0.1/project3';
+const localMongoEndpoint = 'mongodb://127.0.0.1/project3';
+const mongoEndpoint = process.env.MONGODB_URI || localMongoEndpoint;
+
 mongoose.connect(mongoEndpoint, { useNewUrlParser: true });
 
 // Get the connection string

@@ -18,13 +18,10 @@ export default function Post({postDetails}) {
 
     useEffect(() => {
         async function getLoggedInUser() {
-            console.log("checkIfLoggedIn()...")
             try {
                 const response = await axios.get('/api/users/loggedinuser');
                 setLoggedInUsername(response.data.username);
                 setLoggedInUserId(response.data.userId);
-                console.log(`Setting logged in username: ${response.data.username}`)
-                console.log(`Setting logged in userId: ${response.data.userId}`)
             } catch (e) {
                 console.error(e);
             }

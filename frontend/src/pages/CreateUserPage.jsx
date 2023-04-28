@@ -53,7 +53,7 @@ export default function CreateUserPage() {
             setErrorMessage("Something went wrong.");
         }
 
-        // console.log(usernameInput, passwordInput);
+        console.info(`Created user: ${usernameInput}`);
     }
 
     return (
