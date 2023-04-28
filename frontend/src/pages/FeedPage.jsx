@@ -8,6 +8,9 @@ import "./FeedPage.css";
 export default function FeedPage() {
 
     const [posts, setPosts] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState("");
+    const [userId, setUserId] = useState("");
 
     useEffect(() => {
 
@@ -16,14 +19,38 @@ export default function FeedPage() {
             setPosts(response.data);
         }
         getAllPosts()
+    }, [isLoggedIn])
+
+    useEffect(() => {
+        async function checkIfLoggedIn() {
+            console.log("checkIfLoggedIn()...")
+            try {
+                const response = await axios.get('/api/users/loggedinuser');
+                setUsername(response.data.username);
+                setUserId(response.data.userId);
+                console.log(`Setting logged in username: ${response.data.username}`)
+                console.log(`Setting logged in userId: ${response.data.userId}`)
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        checkIfLoggedIn();
     }, [])
+
+    useEffect(() => {
+        if (username && userId) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [username, userId])
 
     return (
         <div>
             <NavBar />
             <div className="feed-outer-container">
-                {/* if logged in, show CreatePost */}
-                <CreatePost />
+                {isLoggedIn && <CreatePost username={username} userId={userId}/>}
                 <Feed posts={posts}/>
             </div>
         </div>

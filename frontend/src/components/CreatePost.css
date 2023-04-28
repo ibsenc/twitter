@@ -28,11 +28,29 @@ input {
     padding-left: 10px;
 }
 
-.submit-button {
+.error-message {
+    margin: auto;
+    margin-top: 7px;
+    color: red;
+    font-size: 14px;
+}
+
+.submit-tweet-button {
     width: fit-content;
     height: fit-content;
     background-color: #1DA1F2;
     padding: 8px 10px;
     border-radius: 20px;
     margin: auto;
+}
+
+.submit-tweet-button:hover {
+    color: #1DA1F2;
+    background-color: white;
+    border: 2px solid #1DA1F2;
+}
+
+.post-and-error-container {
+    display: flex;
+    flex-direction: column;
 }
