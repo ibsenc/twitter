@@ -34,11 +34,23 @@ export default function LoginPage() {
         }
 
         try {
-            const response = await axios.post('/api/users/login', {username: usernameInput, password: passwordInput})
-            navigate('/');
+            const response = await axios.post('/api/users/login', {username: usernameInput, password: passwordInput}, {
+                validateStatus: function (status) {
+                  return status < 500; // Resolve only if the status code is less than 500
+                }
+              })
+
+            if (response.status == 200) {
+                navigate('/');
+            } else if (response.status == 401 || response.status == 403) {
+                setErrorMessage("Invalid credentials, please try again.");
+            } else {
+                console.log(response);
+                throw Exception(response.data);
+            }
         } catch (e) {
             console.error(e)
-            setErrorMessage("Something went wrong");
+            setErrorMessage("Something went wrong.");
         }
 
         console.info(`Logged in user: ${usernameInput}`);

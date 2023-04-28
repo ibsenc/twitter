@@ -73,8 +73,6 @@ router.post('/register', async function(request, response) {
         return res.status(400).send({message: "Must include username AND password"});
     }
 
-    // request.body.password = bcrypt.hashSync(request.body.password, 10);
-
     const newUser = request.body;
 
     try {
