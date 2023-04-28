@@ -99,6 +99,7 @@ export default function Post({postDetails}) {
         } catch (e) {
             console.error(e)
         }
+        setEditing(false);
     }
 
     async function handleDeletePostClick() {
@@ -117,17 +118,17 @@ export default function Post({postDetails}) {
             <div className="first-row-container">
                 <div className="first-row" onClick={goToUserPage}>{postUsername} - {convertDateTime(postDetails.created)}</div>
                 {isPostOwner && 
-                <div className="">
-                    <FontAwesomeIcon className="faicon" icon={faPenToSquare} onClick={handleEditPostClick} />
-                    <FontAwesomeIcon className="faicon" icon={faTrashCan} onClick={handleDeletePostClick} />
-                </div>}
+                    <div>
+                        <FontAwesomeIcon className="faicon" icon={faPenToSquare} onClick={handleEditPostClick} />
+                        <FontAwesomeIcon className="faicon" icon={faTrashCan} onClick={handleDeletePostClick} />
+                    </div>}
             </div>
             <div>
                 {!editing && postDetails.content}
                 {editing && 
                     <div className="updating-post-container">
                         <input type='text' value={postContentInput} onInput={setPostContent} placeholder={content}></input>
-                        <div className="submit-tweet-button white-text twitter-font" onClick={submit}>Submit</div>
+                        <div className="submit-button white-text twitter-font" onClick={submit}>Submit</div>
                     </div>
                 }
             </div>

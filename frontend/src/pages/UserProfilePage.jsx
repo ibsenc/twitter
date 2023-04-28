@@ -4,7 +4,8 @@ import axios from 'axios';
 import Feed from '../components/Feed';
 import CreatePost from '../components/CreatePost';
 import "./UserProfilePage.css";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import { useLocation } from "react-router-dom";
 
 export default function UserProfilePage() {
@@ -18,6 +19,8 @@ export default function UserProfilePage() {
     const [isProfileOwner, setIsProfileOwner] = useState(false);
     const [loggedInUsername, setLoggedInUsername] = useState("");
     const [loggedInUserId, setLoggedInUserId] = useState("");
+    const [editingDescription, setEditingDescription] = useState(false);
+    const [descriptionInput, setDescriptionInput] = useState("");
 
     const location = useLocation();
 
@@ -83,19 +86,61 @@ export default function UserProfilePage() {
         return dt.toLocaleString()
     }
 
+    function setDescription(event) {
+        const newDescription = event.target.value;
+        setDescriptionInput(newDescription);
+    }
+
+    function handleEditDescriptionClick() {
+        setEditingDescription(true);
+    }
+
+    async function submit() {
+        if (!descriptionInput) {
+            return;
+        }
+
+        if (!profileUserId) {
+            console.error("User is not currently logged in.")
+        }
+
+        try {
+            const response = await axios.put(`/api/users/${profileUserId}`, { description: descriptionInput })
+            if (response.status == 200) {
+                setDescriptionInput("");
+                setProfileDescription(response.data.description);
+                window.location.reload();
+            }
+        } catch (e) {
+            console.error(e)
+        }
+        setEditingDescription(false);
+    }
+
     return (
         <div>
             <NavBar />
             <div className="user-details-container">
                 <div className="username-title twitter-font">{profileUsername}</div>
-                <div className="user-description twitter-font">{profileDescription}</div>
+                {!editingDescription &&
+                    <div className="description-and-edit description-container">
+                        <div className="user-description twitter-font">{profileDescription}</div>
+                        <div className="edit-description-icon">
+                            {isProfileOwner && <FontAwesomeIcon icon={faPenToSquare} onClick={handleEditDescriptionClick} />}
+                        </div>
+                    </div>}
+                {editingDescription &&
+                    <div className="input-and-submit description-container">
+                        <input className="input-edit-description" type='text' value={descriptionInput} onInput={setDescription} placeholder={profileDescription}></input>
+                        <div className="submit-button-edit-description white-text twitter-font" onClick={submit}>Save</div>
+                    </div>}
                 <div className="date-joined twitter-font">Joined: {convertDateTime(profileJoined)}</div>
             </div>
-            {isProfileOwner && 
-            <div className="profile-create-post-container">
-                <CreatePost username={profileUsername} userId={profileUserId}/>
-            </div>}
-            <Feed posts={posts}/>
+            {isProfileOwner &&
+                <div className="profile-create-post-container">
+                    <CreatePost username={profileUsername} userId={profileUserId} />
+                </div>}
+            <Feed posts={posts} />
         </div>
     )
 }

@@ -22,10 +22,11 @@
 input {
     border: 1px solid lightgrey;
     border-radius: 20px;
-    height: 30px;
-    width: 380px;
+    height: 25px;
+    width: 390px;
     margin: auto;
     padding-left: 10px;
+    margin-right: 10px;
 }
 
 .error-message {
@@ -34,7 +35,6 @@ input {
     color: red;
     font-size: 14px;
 }
-
 .submit-tweet-button {
     width: fit-content;
     height: fit-content;
